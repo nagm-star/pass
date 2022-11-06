@@ -62,17 +62,16 @@
             </div>
   
             <div class="col-lg-6">
+              
+            @error('g-recaptcha-response')
+           <div class="alert alert-danger">
+              <ul>
+                       <li>{{ $errors->first('g-recaptcha-response') }}</li>
+              </ul>
+          </div><br />
+           @enderror
                 <form action="{{ route('send.email') }}" method="post" role="form" class="php-email-form2">
                     {{ csrf_field() }}
-                      
-                    @error('g-recaptcha-response')
-                   <div class="alert alert-danger">
-                      <ul>
-                               <li>{{ $errors->first('g-recaptcha-response') }}</li>
-                           
-                      </ul>
-                  </div><br />
-                   @enderror
           
           @if(session('success'))
           <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
@@ -84,17 +83,37 @@
     @endif
                 <div class="row">
                   <div class="col form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="الإسم" required>
+                    <input type="text" name="name" class="form-control @if ($errors->has('name'))  value="{{ old('name') }}"   is-invalid @endif" id="name" placeholder="الإسم" required>
+                    @if ($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                    @endif
                   </div>
                   <div class="col form-group">
-                    <input type="email" class="form-control" name="email" id="email" placeholder=" البريد الالكتروني" required>
+                    <input type="email" class="form-control @if ($errors->has('email'))   value="{{ old('email') }}" is-invalid @endif" name="email" id="email" placeholder=" البريد الالكتروني" required>
+                    @if ($errors->has('email'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
+                    @endif
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="الموضوع" required>
+                  <input type="text" class="form-control @if ($errors->has('subject'))  value="{{ old('subject') }}"  is-invalid @endif" name="subject" id="subject" placeholder="الموضوع" required>
+                  @if ($errors->has('subject'))
+                  <div class="invalid-feedback">
+                      {{ $errors->first('subject') }}
+                  </div>
+                  @endif
                 </div>
                 <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" placeholder="الرسالة" required></textarea>
+                  <textarea class="form-control @if ($errors->has('message'))   value="{{ old('message') }}" is-invalid @endif" name="message" rows="5" placeholder="الرسالة" required></textarea>
+                  @if ($errors->has('message'))
+                  <div class="invalid-feedback">
+                      {{ $errors->first('message') }}
+                  </div>
+                  @endif
                 </div>
                 <div class="form-group">
                     <div  class="g-recaptcha" data-sitekey="6LdRAx0cAAAAAHrYeUBVtxRq-X3d1Azge-axWAJC"> </div>

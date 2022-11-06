@@ -29,6 +29,9 @@ Route::get('/services/omdurman', [FrontendController::class , 'omdurman'])->name
 Route::get('/services/khartoum', [FrontendController::class , 'khartoum'])->name('khartoum');
 Route::get('/contact-us', [FrontendController::class , 'contact'])->name('contact');
 Route::post('/contactUs', [FrontendController::class , 'sendemail'])->name('send.email');
+Route::get('/about', [FrontendController::class , 'about'])->name('about');
+Route::get('/projects', [FrontendController::class , 'projects'])->name('projects');
+Route::get('projects/{slug}', [FrontendController::class, 'project_details'])->name('project.details');
 
 
 Auth::routes();
@@ -47,6 +50,9 @@ Route::put('/posts/unPublish/{id}', [PostController::class , 'unPublish'])->name
 Route::get('/trashed/posts', [PostController::class , 'trashed'])->name('posts.trashed');
 Route::put('/trashed/restore/{id}', [PostController::class , 'restore'])->name('posts.restore');
 Route::delete('/posts/delete/{id}', [PostController::class,'kill'])->name('post.kill');
+
+
+Route::resource('projects','App\Http\Controllers\ProjectController');
 
 // Users
 Route::resource('users','App\Http\Controllers\UsersController');

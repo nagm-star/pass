@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Slide;
+use App\Models\Contact;
 use App\Models\Setting;
+use App\Models\Project;
 use App\Models\Service;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
@@ -15,6 +17,7 @@ use Artesaos\SEOTools\Facades\JsonLdMulti;
 use App\Http\Requests\CreateContactRequest;
 
 use Illuminate\Http\Request;
+use Session;
 
 class FrontendController extends Controller
 {
@@ -103,6 +106,35 @@ class FrontendController extends Controller
 
      }
 
+
+     public function about()
+     {
+         $name = Setting::first()->name;
+         $image = Setting::first()->image;
+         $description = Setting::first()->description;
+ 
+         SEOMeta::setTitle($name);
+         SEOMeta::setDescription($description);
+ 
+         SEOMeta::setTitle($name);
+         SEOMeta::setDescription($description);
+         SEOMeta::setCanonical('http://passport.gov.sd/about');
+ 
+         OpenGraph::setDescription($description);
+         OpenGraph::setTitle($name);
+         OpenGraph::setUrl('http://passport.gov.sd/about');
+         OpenGraph::addProperty('type', 'articles');
+ 
+ 
+         JsonLd::setTitle($name);
+         JsonLd::setDescription($description);
+         JsonLd::addImage($image);
+ 
+ 
+         return view('about')
+                 ->with('settings', Setting::first());
+     }
+
     public function post_details($slug)
     {
         $post = Post::where('slug', $slug)->first();
@@ -132,6 +164,37 @@ class FrontendController extends Controller
                  
        
        return view('post-details')->with('post', $post); 
+           
+    }
+    public function project_details($slug)
+    {
+        $project = Project::where('slug', $slug)->first();
+        
+        SEOMeta::setTitle($project->title);
+        SEOMeta::setDescription($project->body);
+        SEOMeta::addMeta('article:section', $project->title, 'property');
+        SEOMeta::addMeta('article:published_time', $project->created_at->toW3CString(), 'property');
+
+        OpenGraph::setDescription($project->body);
+        OpenGraph::setTitle($project->title);
+        OpenGraph::setUrl('http://passport.gov.sd/project/$slug');
+        OpenGraph::addProperty('type', $project->body);
+        OpenGraph::addProperty('locale', 'pt-br');
+        OpenGraph::addProperty('locale:alternate', ['pt-pt', 'en-us']);
+
+        OpenGraph::addImage($project->image);
+        OpenGraph::addImage(['url' => $project->image, 'size' => 300]);
+        OpenGraph::addImage($project->image, ['height' => 300, 'width' => 300]);
+        
+
+        JsonLd::setTitle($project->title);
+        JsonLd::setDescription($project->body);
+        JsonLd::setType('Article');
+        
+        TwitterCard::setTitle($project->title);
+                 
+       
+       return view('project-details')->with('project', $project); 
            
     }
 
@@ -206,12 +269,14 @@ class FrontendController extends Controller
 
     public function service_details($id)
     {
+        $type = '';
         if($id == 'sudanese') {
-            dd('sudanese');
+            $type = 1;
         } else {
-            dd ('foreigner');
+            $type = 0;
         }
-        $services = Service::where('category', $id)->get();
+       
+        $services = Service::where('category', $type)->get();
         
   
         OpenGraph::setUrl('http://passport.gov.sd/services/details/', $id);
@@ -220,7 +285,7 @@ class FrontendController extends Controller
 
                  
        
-       return view('service-details')->with('services', $services); 
+       return view('service-details', compact('type'))->with('services', $services); 
            
     }
 
@@ -256,5 +321,35 @@ class FrontendController extends Controller
                        ->with('relatedServices', $relatedServices); 
            
     }
+
+    public function projects()
+    {
+        $name = Setting::first()->name;
+        $image = Setting::first()->image;
+        $description = Setting::first()->description;
+
+        SEOMeta::setTitle($name);
+        SEOMeta::setDescription($description);
+
+        SEOMeta::setTitle($name);
+        SEOMeta::setDescription($description);
+        SEOMeta::setCanonical('http://passport.gov.sd/projects');
+
+        OpenGraph::setDescription($description);
+        OpenGraph::setTitle($name);
+        OpenGraph::setUrl('http://passport.gov.sd/projects');
+        OpenGraph::addProperty('type', 'articles');
+
+
+        JsonLd::setTitle($name);
+        JsonLd::setDescription($description);
+        JsonLd::addImage($image);
+
+
+        return view('projects')
+                ->with('projects', Project::orderBy('created_at' ,'DESC')->get())
+                ->with('settings', Setting::first());
+    }
+
 
 }

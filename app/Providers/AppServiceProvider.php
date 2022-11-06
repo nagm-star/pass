@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Post;
 use App\Models\Setting;
+use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Pagination\Paginator;
@@ -42,9 +43,20 @@ class AppServiceProvider extends ServiceProvider
             $view->with('latest', $latest);
         });
         
+        
+        view()->composer('*', function($view){
+            $latestProject = Project::orderBy('created_at' ,'DESC')->paginate(5);
+            $view->with('latestProject', $latestProject);
+        });
+        
         view()->composer('*', function($view){
             $allservices = Service::all();
             $view->with('allservices', $allservices);
+        });
+        
+        view()->composer('*', function($view){
+            $projects = Project::all();
+            $view->with('projects', $projects);
         });
 
 

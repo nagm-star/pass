@@ -31,7 +31,7 @@
      <!-- ======= Top Bar ======= -->
  <section id="topbar" class="d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="contact-info d-flex align-items-center">
+        <div class="contact-info d-flex align-items-center " style="direction: ltr !important;">
             <i class="bi bi-envelope d-flex align-items-center"><a
                     href="mailto:{{ $settings->email}}">{{ $settings->email}}</a></i>
             <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ $settings->contact_number }}</span></i>
@@ -55,7 +55,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto active" href="#hero">الرئيسية</a></li>
-                <li><a class="nav-link scrollto" href="#about">عن الإدارة</a></li>
+                <li><a class="nav-link scrollto" href="{{  route('about') }}">عن الإدارة</a></li>
                 <li class="dropdown"><a href="#"><span>دليل الخدمات</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li>
@@ -64,7 +64,7 @@
                             </a>
                         <li>
                         <li>
-                            <a href="{{ route('service.details', 'foriegner')}}" > 
+                            <a href="{{ route('service.details', 'foreigner')}}" > 
                                 خدمات الأجانب
                             </a>
                         <li>
@@ -123,8 +123,8 @@
                         <!-- <h3>BizLand<span>.</span></h3> -->
                         <a href="index.html" class="logo"><img src="{{ asset('frontend/img/logo-footer.png') }}" alt=""></a>
                         <p>
-                            وزارة الداخلية <br> رئاسة قوات الشرطة <br> الادارة العامة للجوازات و الهجرة <br><br>
-                            <strong>تلفون:</strong> +1 5589 55488 55<br>
+                            {{ $settings->address }} <br><br>
+                            <strong>تلفون:</strong>{{ $settings->contact_number }}<br>
                             <strong>بريد إلكتروني:</strong> {{ $settings->email}}<br>
                         </p>
                     </div>
@@ -132,19 +132,20 @@
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>روابط مفيدة</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-left"></i> <a href="#">الرئيسية</a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a href="#/">الرئيسية</a></li>
                             <li><i class="bx bx-chevron-left"></i> <a href="#">قوانين ولوائح </a></li>
-                            <li><i class="bx bx-chevron-left"></i> <a href="#">مشروعات</a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a href="{{ route('projects')}}">مشروعات</a></li>
                             <li><i class="bx bx-chevron-left"></i> <a href="#">تقارير</a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a  href="mailto:{{ $settings->email}}">الشكاوي</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>خدمات</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-left"></i> <a href="#">التقديم الإلكتروني للجواز </a></li>
-                            <li><i class="bx bx-chevron-left"></i> <a href="#">الإستعلام عن جاهزية الجواز </a></li>
-                            <li><i class="bx bx-chevron-left"></i> <a href="#">خدمة ضيوفي</a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a href="https://eservice.passport.gov.sd/passport" target="_blank">التقديم الإلكتروني للجواز </a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a href="https://eservice.passport.gov.sd/passport/reg/order_status"  target="_blank">الإستعلام عن جاهزية الجواز </a></li>
+                            <li><i class="bx bx-chevron-left"></i> <a href="https://eservice.passport.gov.sd/aliens" target="_blank">خدمة ضيوفي</a></li>
                             <li><i class="bx bx-chevron-left"></i> <a href="#">التقديم للأجانب</a></li>
                         </ul>
                     </div>
