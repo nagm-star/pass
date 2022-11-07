@@ -24,11 +24,11 @@ class CreateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191',
-            'subject' => 'required|max:1999',
-            'message' => 'required|max:500',
-            // 'g-recaptcha-response' => 'required'
+            'subject' => 'required|max:199',
+            'message' => 'required|max:900',
+            'g-recaptcha-response' => 'required'
         ];
     }
 }

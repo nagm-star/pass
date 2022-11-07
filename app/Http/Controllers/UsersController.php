@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class UsersController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +24,9 @@ class UsersController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.users.index')->with('users', User::all());
     }
 
@@ -33,6 +37,9 @@ class UsersController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.users.create');
     }
 
@@ -53,6 +60,9 @@ class UsersController extends Controller
      */
     protected function store(Request $request)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -102,6 +112,9 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.users.create', compact('user'));
         
     }
@@ -115,6 +128,9 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
             'email' => ['sometimes', 'string', 'email', 'max:255'],
@@ -150,6 +166,9 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $user->delete();
 
         Session::flash('success', 'Deleted Successfully');
@@ -160,6 +179,9 @@ class UsersController extends Controller
     
     public function admin($id)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         if (! Gate::allows('is_admin')) {
             return view('errors.403');
         }
@@ -179,6 +201,9 @@ class UsersController extends Controller
     
     public function not_admin($id)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         if (! Gate::allows('is_admin')) {
             return view('errors.403');
         }
@@ -202,11 +227,12 @@ class UsersController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
-        //dd($request->all());
+        // dd($request->all());
         $this->validate($request, [
-            'name' => 'string',
+            'name' => 'sometimes', 'string', 'max:255',
             'email' => 'required|email',
-            'password' => 'string',
+            'password' => 'required_with:password_confirmation|string|confirmed',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $user = User::findorFail($id);

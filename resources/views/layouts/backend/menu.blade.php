@@ -8,25 +8,28 @@
             <span class="nav-main-link-name">Dashboard</span>
           </a>
         </li>
+        @can('is_admin')
+
         <li class="nav-main-item">
-          <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-            <i class="nav-main-link-icon si si-layers"></i>
-            <span class="nav-main-link-name">Services</span>
-          </a>
-          <ul class="nav-main-submenu">
-            <li class="nav-main-item">
-              <a class="nav-main-link" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                <i class="nav-main-link-icon si si-bag"></i>
-                <span class="nav-main-link-name">Sudanes Services</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                <i class="nav-main-link-icon si si-bag"></i>
-                <span class="nav-main-link-name">Foreigner Services</span>
-              </a>
-            </li>
-          </ul>
+          <li class="nav-main-heading">Services</li>
+          <li class="nav-main-item">
+            <a class="nav-main-link active" href="{{  route('admin.services.index') }}">
+              <i class="nav-main-link-icon si si-people"></i>
+              <span class="nav-main-link-name">All Services</span>
+            </a>
+          </li>
+          <li class="nav-main-item">
+            <a class="nav-main-link active" href="{{  route('admin.services.index') }}">
+              <i class="nav-main-link-icon si si-bag"></i>
+              <span class="nav-main-link-name">Sudanese Services</span>
+            </a>
+          </li>
+          <li class="nav-main-item">
+            <a class="nav-main-link active" href="{{  route('admin.services.index') }}">
+              <i class="nav-main-link-icon si si-bag"></i>
+              <span class="nav-main-link-name">Foreign Services</span>
+            </a>
+          </li>
         </li>
         <li class="nav-main-item">
           <a class="nav-main-link active" href="{{ route('admin.projects.index') }}">
@@ -34,6 +37,8 @@
             <span class="nav-main-link-name">Projects</span>
           </a>
         </li>
+        @endcan
+        @can('user-admin')
         <li class="nav-main-heading">Blog</li>
         <li class="nav-main-item">
           <a class="nav-main-link active" href="{{ route('admin.posts.index') }}">
@@ -41,6 +46,8 @@
             <span class="nav-main-link-name">News</span>
           </a>
         </li>
+        @endcan
+        @can('is_admin')
         <li class="nav-main-item">
           <a class="nav-main-link active" href="{{ route('admin.posts.trashed') }}">
             <i class="nav-main-link-icon si si-trash"></i>
@@ -78,6 +85,7 @@
             <span class="nav-main-link-name">Settings</span>
           </a>
         </li>
+        @endcan
       </ul>
     </div>
     <!-- END Side Navigation -->

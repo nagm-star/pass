@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Post;
 use App\Models\Setting;
+use App\Models\Contact;
 use App\Models\Project;
+use App\Models\User;
 use App\Models\Service;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Pagination\Paginator;
@@ -57,6 +59,26 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view){
             $projects = Project::all();
             $view->with('projects', $projects);
+        });
+        
+        view()->composer('*', function($view){
+            $allPosts = Post::all();
+            $view->with('allPosts', $allPosts);
+        });
+        
+        view()->composer('*', function($view){
+            $allusers = User::all();
+            $view->with('allusers', $allusers);
+        });
+        
+        view()->composer('*', function($view){
+            $allservices = Service::all();
+            $view->with('allservices', $allservices);
+        });
+        
+        view()->composer('*', function($view){
+            $allcontacts = Contact::all();
+            $view->with('allcontacts', $allcontacts);
         });
 
 

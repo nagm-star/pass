@@ -175,7 +175,7 @@
                         <img src="{{ $post->image }}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info">
-                        <h4> {{ $slide->title }} </h4>
+                        <h4> {{ $post->title }} </h4>
                         <span>
                             {!!  substr(strip_tags($post->body), 0, 250) !!} 
                             .. <a href="{{ route('post.show', $post->slug) }}"><b>قراءة المزيد</b></a>

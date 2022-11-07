@@ -7,16 +7,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlideController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 
 
@@ -41,6 +32,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('services','App\Http\Controllers\ServiceController');
+Route::get('/service/sudan', 'App\Http\Controllers\ServiceController@sudan')->name('service.sudan');
+Route::get('/service/foreign', 'App\Http\Controllers\ServiceController@foreign')->name('service.foreign');
 
 Route::resource('posts','App\Http\Controllers\PostController');
 // Route::get('/posts/trashed/', [App\Http\Controllers\PostController::class , 'trashed'])->name('posts.trashed');
@@ -60,7 +53,7 @@ Route::get('/user/trashed', 'App\Http\Controllers\UsersController@trashed')->nam
 Route::put('/user/restore/{id}', [UsersController::class , 'restore'])->name('users.restore');
 Route::delete('/user/delete/{id}', [UsersController::class,'kill'])->name('user.kill');
 Route::get('/user/profile', 'App\Http\Controllers\UsersController@profile')->name('profile');
-Route::put('/user/profile/{id}', 'App\Http\Controllers\UsersController@update')->name('user.profile.update');
+Route::put('/user/profile/{id}', 'App\Http\Controllers\UsersController@updateProfile')->name('user.profile.update');
 Route::get('/user/not-admin/{id}', 'App\Http\Controllers\UsersController@not_admin')->name('user.not_admin');
 Route::get('/user/admin/{id}', 'App\Http\Controllers\UsersController@admin')->name('user.admin');
 

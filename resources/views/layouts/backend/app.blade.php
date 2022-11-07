@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>OneUI - Bootstrap 5 Admin Template &amp; UI Framework</title>
+    <title>Cpanel &amp;  </title>
 
     <meta name="description" content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
@@ -487,7 +487,7 @@
             <span class="smini-visible">
               <i class="fa fa-circle-notch text-primary"></i>
             </span>
-            <span class="smini-hide fs-5 tracking-wider">One<span class="fw-normal">UI</span></span>
+            <span class="smini-hide fs-5 tracking-wider">Admin<span class="fw-normal">Panel</span></span>
           </a>
           <!-- END Logo -->
 
@@ -584,36 +584,6 @@
         <div class="content-header">
           <!-- Left Section -->
           <div class="d-flex align-items-center">
-            <!-- Toggle Sidebar -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-            <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-lg-none" data-toggle="layout" data-action="sidebar_toggle">
-              <i class="fa fa-fw fa-bars"></i>
-            </button>
-            <!-- END Toggle Sidebar -->
-
-            <!-- Toggle Mini Sidebar -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-            <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
-              <i class="fa fa-fw fa-ellipsis-v"></i>
-            </button>
-            <!-- END Toggle Mini Sidebar -->
-
-            <!-- Open Search Section (visible on smaller screens) -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
-              <i class="fa fa-fw fa-search"></i>
-            </button>
-            <!-- END Open Search Section -->
-
-            <!-- Search Form (visible on larger screens) -->
-            <form class="d-none d-md-inline-block" action="be_pages_generic_search.html" method="POST">
-              <div class="input-group input-group-sm">
-                <input type="text" class="form-control form-control-alt" placeholder="Search.." id="page-header-search-input2" name="page-header-search-input2">
-                <span class="input-group-text border-0">
-                  <i class="fa fa-fw fa-search"></i>
-                </span>
-              </div>
-            </form>
             <!-- END Search Form -->
           </div>
           <!-- END Left Section -->
@@ -630,128 +600,33 @@
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
                 <div class="p-3 text-center bg-body-light border-bottom rounded-top">
                   <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('backend/media/avatars/avatar10.jpg') }}" alt="">
-                  <p class="mt-2 mb-0 fw-medium">John Smith</p>
-                  <p class="mb-0 text-muted fs-sm fw-medium">Web Developer</p>
+                  <p class="mt-2 mb-0 fw-medium">{{ Auth::user()->name }}</p>
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
-                    <span class="fs-sm fw-medium">Inbox</span>
-                    <span class="badge rounded-pill bg-primary ms-2">3</span>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_profile.html">
+                  {{-- <a href="{{ route('admin.profile', Auth::user()->id) }}" class="btn btn-default btn-flat">Profile</a> --}}
+
+                  <a class="dropdown-item d-flex align-items-center justify-content-between" 
+                  href="{{  route('admin.profile') }}">
                     <span class="fs-sm fw-medium">Profile</span>
-                    <span class="badge rounded-pill bg-primary ms-2">1</span>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                    <span class="fs-sm fw-medium">Settings</span>
                   </a>
                 </div>
                 <div role="separator" class="dropdown-divider m-0"></div>
                 <div class="p-2">
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_lock.html">
-                    <span class="fs-sm fw-medium">Lock Account</span>
+                  <a href="#" class="dropdown-item d-flex align-items-center justify-content-between"
+                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      Sign out
                   </a>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_signin.html">
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+ {{--                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_signin.html">
                     <span class="fs-sm fw-medium">Log Out</span>
-                  </a>
+                  </a> --}}
                 </div>
               </div>
             </div>
             <!-- END User Dropdown -->
 
-            <!-- Notifications Dropdown -->
-            <div class="dropdown d-inline-block ms-2">
-              <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-fw fa-bell"></i>
-                <span class="text-primary">•</span>
-              </button>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 border-0 fs-sm" aria-labelledby="page-header-notifications-dropdown">
-                <div class="p-2 bg-body-light border-bottom text-center rounded-top">
-                  <h5 class="dropdown-header text-uppercase">Notifications</h5>
-                </div>
-                <ul class="nav-items mb-0">
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-check-circle text-success"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">You have a new follower</div>
-                        <span class="fw-medium text-muted">15 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-plus-circle text-primary"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">1 new sale, keep it up</div>
-                        <span class="fw-medium text-muted">22 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-times-circle text-danger"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">Update failed, restart server</div>
-                        <span class="fw-medium text-muted">26 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-plus-circle text-primary"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">2 new sales, keep it up</div>
-                        <span class="fw-medium text-muted">33 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-user-plus text-success"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">You have a new subscriber</div>
-                        <span class="fw-medium text-muted">41 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                      <div class="flex-shrink-0 me-2 ms-3">
-                        <i class="fa fa-fw fa-check-circle text-success"></i>
-                      </div>
-                      <div class="flex-grow-1 pe-2">
-                        <div class="fw-semibold">You have a new follower</div>
-                        <span class="fw-medium text-muted">42 min ago</span>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-                <div class="p-2 border-top text-center">
-                  <a class="d-inline-block fw-medium" href="javascript:void(0)">
-                    <i class="fa fa-fw fa-arrow-down me-1 opacity-50"></i> Load More..
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!-- END Notifications Dropdown -->
-
-            <!-- Toggle Side Overlay -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout" data-action="side_overlay_toggle">
-              <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
-            </button>
-            <!-- END Toggle Side Overlay -->
           </div>
           <!-- END Right Section -->
         </div>
@@ -796,11 +671,9 @@
       <footer id="page-footer" class="bg-body-light">
         <div class="content py-3">
           <div class="row fs-sm">
-            <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-end">
-              Crafted with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold" href="https:/1.envato.market/ydb" target="_blank">pixelcave</a>
-            </div>
+     
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-              <a class="fw-semibold" href="https:/1.envato.market/AVD6j" target="_blank">OneUI 5.3</a> &copy; <span data-toggle="year-copy"></span>
+              <a class="fw-semibold" href="https:/1.envato.market/AVD6j" target="_blank">Cpanel</a> &copy; <span data-toggle="year-copy"></span>
             </div>
           </div>
         </div>
@@ -829,21 +702,6 @@
     <!-- Page JS Helpers (CKEditor + SimpleMDE plugins) -->
     {{-- <script>One.helpersOnLoad(['js-ckeditor', 'js-simplemde']);</script> --}}
 
-{{--     <script>
-      @if(Session::has('success'))
-        toastr.success("{{ Session::get('success') }}")
-      @elseif(Session::has('info'))
-        toastr.info("{{ Session::get('info') }}")
-      @elseif(Session::has('error'))
-      toastr.error("{{ Session::get('error') }}")
-      @endif
-  
-  
-  $(document).ready( function () {
-  $('#myTable').DataTable();
-  } );
-    
-  </script> --}}
     @yield('scripts')
   </body>
 </html>

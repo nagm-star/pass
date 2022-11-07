@@ -22,6 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $posts = Post::orderBy('created_at' ,'DESC')->get();
         return view('backend.posts.index', compact('posts'));
     }
@@ -33,6 +36,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.posts.create');
     }
 
@@ -44,6 +50,9 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         // dd($request->all());
         if($request->hasFile('image')){
             // Get filename with the extension
@@ -88,6 +97,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.posts.view', compact('post'));
     }
 
@@ -99,6 +111,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.posts.create',compact('post'));
     }
 
@@ -111,6 +126,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
             // dd($request->all());
            //TODO: check validation and status button
             $request->validate([
@@ -173,6 +191,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         try{
             $post->delete();
             
@@ -188,6 +209,7 @@ class PostController extends Controller
 
     public function trashed()
     {
+
         if (! Gate::allows('is_admin')) {
             return view('errors.403');
         }
@@ -199,6 +221,9 @@ class PostController extends Controller
 
     public function restore($id)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
 
         $post = Post::withTrashed()->where('id', $id)->firstOrFail();
         //$post = post::onlyTrashed()->firstOrFail();
@@ -239,6 +264,9 @@ class PostController extends Controller
     
     public function Publish($id)
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $post = Post::find($id);
 
         //dd($id);
@@ -257,6 +285,9 @@ class PostController extends Controller
     public function unPublish($id)
     {
         //dd($id);
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         $post = Post::find($id);
 
         //dd($id);

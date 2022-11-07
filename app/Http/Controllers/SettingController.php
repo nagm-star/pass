@@ -8,17 +8,23 @@ use App\Http\Requests\UpdateSettingRequest;
 use Session;
 use Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class SettingController extends Controller
 {
     public function index()
     {
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.settings.index')->with('settings', Setting::first());
     }
 
     public function update(UpdateSettingRequest $request, $id)
     {
-
+        if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         // dd($request->all());
         $setting = Setting::findOrFail($id);
     

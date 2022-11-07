@@ -193,13 +193,6 @@ class SlideController extends Controller
             $slide->name = $request->input('name');
         } 
     
-       /*  if($request->has('image')){
-            $slide->image = $filename;
-        }
-        if($request->has('image_en')){
-            $slide->image_en = $filename2;
-        }
- */
         
 
         $slide->save();

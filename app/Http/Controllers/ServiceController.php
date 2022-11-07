@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateserviceRequest;
 use Exception;
 use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ServiceController extends Controller
 {
@@ -18,8 +19,30 @@ class ServiceController extends Controller
      */
     public function index()
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.services.index')
              ->with('services', Service::all());
+    }
+
+    public function sudan()
+    {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
+        return view('backend.services.index')
+             ->with('services', Service::where('category', 1)->get());
+    }
+
+    public function foreign()
+    {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
+        return view('backend.services.index')
+              ->with('services', Service::where('category', 0)->get());
+
     }
 
     /**
@@ -29,6 +52,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.services.create');
     }
 
@@ -40,12 +66,9 @@ class ServiceController extends Controller
      */
     public function store(StoreNewServiceRequest $request)
     {
-        // dd($request->all());
-/*         $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            // 'description' => ['required', 'string', 'max:255'],
-        ]);
-  */
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
 
        try{
         $service = new service();
@@ -77,6 +100,9 @@ class ServiceController extends Controller
      */
     public function show(service $service)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         //
     }
 
@@ -88,6 +114,9 @@ class ServiceController extends Controller
      */
     public function edit(service $service)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         return view('backend.services.create',compact('service'));
     }
 
@@ -100,16 +129,21 @@ class ServiceController extends Controller
      */
     public function update(UpdateserviceRequest $request, service $service)
     {
+        // dd($request->all());
+       if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         try{
     
             $service->title = $request->input('title');
             $service->body = $request->input('body');
+            $service->category = $request->input('category');
             if($request->title) {
                 $service->slug = make_slug($request->input('title'));
             }
-            if($request->category) {
-                $service->category = $request->category;
-            }
+/*             if($request->category) {
+                $service->category = $request->input('category');
+            } */
             
 
             $service->save();
@@ -131,6 +165,9 @@ class ServiceController extends Controller
      */
     public function destroy(service $service)
     {
+                if (! Gate::allows('is_admin')) {
+            abort(403);
+        }
         try{
             $service->delete();
             
