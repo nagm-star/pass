@@ -5,13 +5,11 @@
 
     <div class="card-body">
  
-        <form action="{{ isset($post) ? route('admin.posts.update', $post->id) : route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
-
             @if(isset($post))
             @method('PUT')
             @endif
-
             <div class="modal-body">
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -53,7 +51,6 @@
 
                                 </div>
                             </div>
-
                   <br>
  
                   @if (isset($post))
@@ -69,23 +66,31 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                           <label  class="col-sm-2 control-label" for="image">Image</label>
-                          <input type="file" class="form-control" name="image" id="image">
+                          <input type="file" class="form-control" name="image" id="image" />
                           <p style="color:red; !important; top:2px;">Recommended size: 600x200 pixles</p>
                           </div>
-                          
                     </div>
                
                
-                <div class="form-group row mb-2">
-                    <div class="col-sm-10">
-                        <label class="form-label">Published?</label> 
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" value="{{ isset($post) ? $post->status : 1 }}"
-                             id="status" name="status" @if(isset($post) && $post->status === 1) checked @endif >
-                            <label class="form-check-label" for="status"></label>
-                        </div>
-                    </div>
-                </div>
+                    <div class="form-group row">
+                        <label  class="col-sm-1 control-label" for="status">Published?   </label>
+                        <div class="col-sm-10">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="status" id="status1" value="1" {{ ($post->status=="1")? "checked" : "" }} >
+                                  <label class="form-check-label" for="status1">
+                                    Active
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="status" id="status2" value="0" {{ ($post->status=="0")? "checked" : "" }}>
+                                  <label class="form-check-label" for="status2">
+                                    Inactive
+                                  </label>
+                                </div>
+                              </div>
+                 
+        
+                      </div>
 
                 <div class="form-group row mb-2">
                     <div class="col-sm-10">
@@ -94,7 +99,7 @@
                         value="{{isset($post) ? $post->published_at : old('published_at')}} ">
                     </div>
               </div>
-
+         <br>
                <div class="form-group row">
                    <div class="col-sm-10">
                     <button class="btn btn-lg btn-success">

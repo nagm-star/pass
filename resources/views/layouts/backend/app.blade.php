@@ -600,7 +600,7 @@
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
                 <div class="p-3 text-center bg-body-light border-bottom rounded-top">
                   <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('backend/media/avatars/avatar10.jpg') }}" alt="">
-                  <p class="mt-2 mb-0 fw-medium">{{ Auth::user()->name }}</p>
+                  <p class="mt-2 mb-0 fw-medium">{{-- {{ Auth::user()->name }} --}}</p>
                 </div>
                 <div class="p-2">
                   {{-- <a href="{{ route('admin.profile', Auth::user()->id) }}" class="btn btn-default btn-flat">Profile</a> --}}

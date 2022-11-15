@@ -114,7 +114,7 @@ class PostController extends Controller
         if (! Gate::allows('is_admin')) {
             abort(403);
         }
-        return view('backend.posts.create',compact('post'));
+        return view('backend.posts.edit',compact('post'));
     }
 
     /**
@@ -129,7 +129,6 @@ class PostController extends Controller
         if (! Gate::allows('is_admin')) {
             abort(403);
         }
-            // dd($request->all());
            //TODO: check validation and status button
             $request->validate([
                  'title' => 'string',
@@ -241,12 +240,13 @@ class PostController extends Controller
       if (! Gate::allows('is_admin')) {
         return view('errors.403');
     }
-      $post = Post::withTrashed()->where('id', $id)->firstOrFail();
-
-      if($post->trashed()) {
-
-          $path = parse_url($post->image);
-
+    $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+    
+    if($post->trashed()) {
+        
+        $path = parse_url($post->image);
+        
+        // dd($path);
           File::delete(public_path($path['path']));
 
           $post->forceDelete();
@@ -264,12 +264,12 @@ class PostController extends Controller
     
     public function Publish($id)
     {
+        //dd($id);
         if (! Gate::allows('is_admin')) {
             abort(403);
         }
         $post = Post::find($id);
 
-        //dd($id);
 
         $post->status = 1;
 

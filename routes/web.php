@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlideController;
@@ -46,7 +47,6 @@ Route::delete('/posts/delete/{id}', [PostController::class,'kill'])->name('post.
 
 
 Route::resource('projects','App\Http\Controllers\ProjectController');
-
 // Users
 Route::resource('users','App\Http\Controllers\UsersController');
 Route::get('/user/trashed', 'App\Http\Controllers\UsersController@trashed')->name('trashed');

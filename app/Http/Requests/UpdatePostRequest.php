@@ -24,7 +24,9 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'sometimes', 'string',
+            'body' => 'sometimes', 'string',
+            'image' =>'sometimes|image|mimes:jpeg,png,jpg|max:1048',
         ];
     }
 }

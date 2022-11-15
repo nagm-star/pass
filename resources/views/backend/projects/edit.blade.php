@@ -5,10 +5,10 @@
 
     <div class="card-body">
  
-        <form action="{{ isset($post) ? route('admin.posts.update', $post->id) : route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.projects.update', $project->id)}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 
-            @if(isset($post))
+            @if(isset($project))
             @method('PUT')
             @endif
 
@@ -31,7 +31,7 @@
 
                                 <div class="col-md-10">
                                 <label for="" class="col-sm-2 col-form-label">Title</label>
-                                    <input type="text" class="form-control  @if ($errors->has('title'))   is-invalid @endif" name="title" id="title"  value="{{ isset($post) ? $post->title : old('title')}}">
+                                    <input type="text" class="form-control  @if ($errors->has('title'))   is-invalid @endif" name="title" id="title"  value="{{ isset($project) ? $project->title : old('title')}}">
                                     @if ($errors->has('title'))
                                     <div class="invalid-feedback">
                                         {{ $errors->first('title') }}
@@ -44,7 +44,7 @@
 
                                 <div class="col-md-10">
                                 <label for="" class="col-sm-2 col-form-label">Description</label>
-                                <textarea name="body" class="form-control @if ($errors->has('body'))   is-invalid @endif" id="js-ckeditor" cols="30"  rows="10"  >{{isset($post) ? $post->body : old('body')}}</textarea>
+                                <textarea name="body" class="form-control @if ($errors->has('body'))   is-invalid @endif" id="js-ckeditor" cols="30"  rows="10"  >{{isset($project) ? $project->body : old('body')}}</textarea>
                                 @if ($errors->has('body'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('body') }}
@@ -56,11 +56,11 @@
 
                   <br>
  
-                  @if (isset($post))
+                  @if (isset($project))
                   <div class="form-group row">
                       <div class="col-sm-10">
                     <label  class="col-sm-2 control-label" for=""></label>
-                      <img src="{{ asset($post->image) }}" alt="" height="50px" width="150px"  srcset="">
+                      <img src="{{ asset($project->image) }}" alt="" height="50px" width="150px"  srcset="">
                     </div>
                   </div>
         
@@ -74,31 +74,12 @@
                           </div>
                           
                     </div>
-               
-               
-                <div class="form-group row mb-2">
-                    <div class="col-sm-10">
-                        <label class="form-label">Published?</label> 
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" value="{{ isset($post) ? $post->status : 1 }}"
-                             id="status" name="status" @if(isset($post) && $post->status === 1) checked @endif >
-                            <label class="form-check-label" for="status"></label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group row mb-2">
-                    <div class="col-sm-10">
-                    <label  class="col-sm-2 control-label" for="published_at">Published At</label>
-                        <input type="text" class="form-control" name="published_at" id="published_at" 
-                        value="{{isset($post) ? $post->published_at : old('published_at')}} ">
-                    </div>
-              </div>
 
                <div class="form-group row">
                    <div class="col-sm-10">
                     <button class="btn btn-lg btn-success">
-                        {{ isset($post) ? 'Update' : 'Save'}}
+                        {{ isset($project) ? 'Update' : 'Save'}}
                     </button>
                </div>
             </div>

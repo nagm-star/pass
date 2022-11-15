@@ -56,6 +56,7 @@
             <ul>
                 <li><a class="nav-link scrollto active" href="#hero">الرئيسية</a></li>
                 <li><a class="nav-link scrollto" href="{{  route('about') }}">عن الإدارة</a></li>
+                <li><a class="nav-link scrollto active" href="#news">أخبار</a></li>
                 <li class="dropdown"><a href="#"><span>دليل الخدمات</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li>

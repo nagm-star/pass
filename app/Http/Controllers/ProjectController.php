@@ -106,7 +106,7 @@ class ProjectController extends Controller
         if (!Gate::allows('is_admin')) {
             abort(403);
         }
-        return view('backend.projects.create', compact('project'));
+        return view('backend.projects.edit', compact('project'));
     }
 
     /**
@@ -121,7 +121,6 @@ class ProjectController extends Controller
         if (!Gate::allows('is_admin')) {
             abort(403);
         }
-        // dd($request->all());
         //TODO: check validation and status button
 
         if ($request->hasFile('image')) {
@@ -177,6 +176,11 @@ class ProjectController extends Controller
             abort(403);
         }
         try {
+            $path = parse_url($project->image);
+    
+            File::delete(public_path($path['path']));
+    
+
             $project->delete();
 
             session()->flash('success', 'Deleted successfully');
@@ -186,5 +190,46 @@ class ProjectController extends Controller
 
             return back()->withError($e->getMessage());
         }
+    }
+
+            
+    public function publish($id)
+    {
+        dd($id);
+        if (! Gate::allows('is_admin')) {
+            return view('errors.403');
+        }
+        $project = project::findorFail($id);
+
+
+        $project->status = 1;
+
+        $project->save();
+
+        Session::flash('success', 'Updated Successfully');
+
+        return redirect(route('admin.projects.show',$project))->with('project', $project);
+
+    }
+
+    
+    public function unPublish($id)
+    {
+        
+        if (! Gate::allows('is_admin')) {
+            return view('errors.403');
+        }
+        $project = project::findorFail($id);
+
+        //dd($id);
+
+        $project->status = 0;
+
+        $project->save();
+
+        Session::flash('success', 'Updated Successfully');
+
+        return redirect(route('admin.projects.show',$project))->with('project', $project);
+
     }
 }

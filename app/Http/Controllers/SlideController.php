@@ -118,7 +118,7 @@ class SlideController extends Controller
         if (! Gate::allows('is_admin')) {
             return view('errors.403');
         }
-        return view('admin.slides.create')->with('slide', $slide);
+        return view('backend.slides.create')->with('slide', $slide);
     }
 
     /**
@@ -184,13 +184,13 @@ class SlideController extends Controller
         if($request->has('status')){
         $slide->status = $request->input('status');
         }
-        if($request->name) {
-            $slide->name = $request->input('name');
+        if($request->title) {
+            $slide->title = $request->input('title');
 
           }
 
-        if($request->name_en) {
-            $slide->name = $request->input('name');
+        if($request->body) {
+            $slide->body = $request->input('body');
         } 
     
         
